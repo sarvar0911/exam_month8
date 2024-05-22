@@ -64,8 +64,6 @@ class PaperSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    paper = serializers.StringRelatedField()
-
     class Meta:
         model = Review
-        fields = '__all__'
+        fields = ['id', 'paper', 'content']

@@ -1,9 +1,10 @@
 from rest_framework import permissions
 
 
-class ReviewPermission(permissions.BasePermission):
+class IsReviewer(permissions.BasePermission):
+
     def has_permission(self, request, view):
-        if view.action == 'create':
-            paper_id = request.data.get('paper')
-            return request.user.reviews.filter(paper_id=paper_id).exists()
-        return True
+        # Allow all users to view reviews
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user and request.user.is_authenticated and request.user.is_reviewer

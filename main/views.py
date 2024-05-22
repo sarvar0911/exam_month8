@@ -4,14 +4,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, viewsets, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
-from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.response import Response
 
 from .filters import PaperFilter
 from .models import Requirement, FAQ, Contact, Tag, Publication, Paper, Review
-from .permissions import ReviewPermission
+from .permissions import IsReviewer
 from .serializers import (
     RequirementSerializer, FAQSerializer, ContactSerializer,
     TagSerializer, PublicationSerializer, PaperSerializer, ReviewSerializer
@@ -163,10 +163,7 @@ class PaperViewSet(viewsets.ModelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [ReviewPermission]
+    permission_classes = [IsAuthenticated, IsReviewer]
 
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_superuser:
-            return Review.objects.all()
-        return user.reviews.all()
+    def perform_create(self, serializer):
+        serializer.save(reviewer=self.request.user)
