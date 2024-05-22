@@ -6,6 +6,8 @@ class PaperFilter(django_filters.FilterSet):
     class Meta:
         model = Paper
         fields = {
-            'title': ['icontains'],
-            'keywords': ['exact'],
+            'title_uz': ['icontains'],
+            'title_en': ['icontains'],
+            'keywords_uz': ['exact'],
+            'keywords_en': ['exact']
         }
