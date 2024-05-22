@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     # Third Party Packages
     'drf_yasg',
+    'django_filters',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
 ]
@@ -125,10 +126,10 @@ STATIC_URL = 'static/'
 
 # if DEBUG is False:
 # STATIC_ROOT = '/home/my_domain/domain_dir/static/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = ''
 
 STATICFILES_DIRS = [
-    BASE_DIR / "staticfiles",
+    BASE_DIR / "",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

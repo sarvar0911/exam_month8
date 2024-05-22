@@ -8,8 +8,8 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password')}),
         ('Personal info',
          {'fields': ('first_name', 'last_name', 'birth_date', 'organization', 'scientific_degree', 'additional_info')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'is_verified', 'is_reviewer')}),
-        ('Important dates', {'fields': ('last_login', 'date_joined')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'is_verified', 'is_reviewer')}
+         ),
     )
     add_fieldsets = (
         (None, {
